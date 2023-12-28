@@ -1,6 +1,9 @@
 ﻿using Azure.Identity;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Parsers;
 using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Infrastructure.Exporters;
+using CleanArchitecture.Infrastructure.Parsers;
 using CleanArchitecture.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +22,10 @@ public static class DependencyInjection
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         services.AddScoped<IUser, CurrentUser>();
+
+        // TODO: Make it configurable
+        services.AddScoped<IWordReferenceParser, OxfordParser>();
+        services.AddScoped<IWordsExporter, RewordCsvExporter>();
 
         services.AddHttpContextAccessor();
 
